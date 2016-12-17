@@ -26,17 +26,17 @@ const notifyWebsiteChanges = (monitorUrl, phoneNumber) => {
       return
     }
 
-    const responseLength = JSON.stingify(res).length
+    const responseLength = JSON.stringify(res).length
 
     if (cachedResponseLength === null) {
       cachedResponseLength = responseLength
     }
 
-    // For some reason, the response length varies in length by a character, but 
+    // For some reason, the response length varies in length by a character, but
     // there are no real changes to the response, so we don't consider
     // the response different if the length has only changed by a character.
     if (Math.abs(cachedResponseLength - responseLength) <= 1) {
-      setTimeout(() => notifyWebsiteChanges(monitorUrl, notifyUrl), 5000)
+      setTimeout(() => notifyWebsiteChanges(monitorUrl, phoneNumber), 5000)
     } else {
       const dataString = encodeURI(`number=${phoneNumber}&message=The response from ${monitorUrl} changed.`)
       const options = {
@@ -61,4 +61,4 @@ const notifyWebsiteChanges = (monitorUrl, phoneNumber) => {
   })
 }
 
-notifyWebsiteChanges('http://www.adidas.com/us/reigning_champ', phoneNumber)
+notifyWebsiteChanges('http://www.news.google.com', phoneNumber)
